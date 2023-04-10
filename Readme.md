@@ -1,9 +1,9 @@
 # Wretched Absolution
 ### Team
-- Brock Brown
+- Brock Brown (brownbr61)
 - Noah Mecham
-- Hamid Manoochehri
-- Richard Baird
+- Hamid Manoochehri (hamidmanoochehri)
+- Richard Baird (Richbai90)
 
 ## Topic - [Sampling & Aliasing](https://dspfirst.gatech.edu/chapters/04samplin/overview.html)
 _The conversion of signals between the analog and digital domains is studied. The basic ideas underlying sampling (A/D conversion) and signal reconstruction (D/A conversion) and the important features of A/D and D/A converters are reviewed._
