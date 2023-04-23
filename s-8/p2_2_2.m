@@ -1,27 +1,22 @@
+clear;
+clc;
+clf;
+close all;
 %% 2
 % Parameters to adjust the triangle wave
 fs = 10000;
 Amp = 0.5;
-tStop = 5;
+tStop = 3;
 T = .01;
-x = 0:(1/fs):tStop;
 
-%Formula for a triangle wave
-y=((4*Amp)/T)*(abs(mod(x-(.25*T),T)-0.5*T))-Amp;
+% Generate a triangle wave
+y = triangle(fs,Amp,T,tStop);
 
-M = 100;
+M = 500;
 L = 10;
-g = bartlett(M);
-nfft = 1024;
+g = hamming(M);
+nfft = 512;
 
 figure("Name", "Spec");
-[S,F,T] = spectrogram(y,'yaxis');
+[S,F,T] = spectrogram(y,g,L,nfft);
 waterplot(S,F,T);
-
-function waterplot(s,f,t)
-% Waterfall plot of spectrogram
-    waterfall(f,t,abs(s)'.^2)
-    set(gca,XDir="reverse",View=[30 50])
-    xlabel("Frequency (Hz)")
-    ylabel("Time (s)")
-end
