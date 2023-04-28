@@ -9,7 +9,7 @@ t = [0 5];
 fs = 150;
 [t,x] = generateChirp(f,t,fs);
 plotspec( x, 1/fs), colorbar, grid on %-- with negative frequencies
-% print("demo_chirp","-dpng",'-r600'); % only uncomment in case of desired file change
+print("demo_chirp","-dpng",'-r600'); % only uncomment in case of desired file change
 
 %% Demonstrate Triangle Wave Functionality
 trianglePlot = figure("visible","off");
