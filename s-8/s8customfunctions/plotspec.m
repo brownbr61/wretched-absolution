@@ -10,3 +10,4 @@ function plotspec(x,Ts)
   xlabel('seconds'); ylabel('amplitude')     % label the axes
   subplot(2,1,2), plot(ssf,abs(fxs))         % plot magnitude spectrum
   xlabel('frequency'); ylabel('magnitude')   % label the axes
+end

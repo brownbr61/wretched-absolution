@@ -1,7 +1,7 @@
 # Wretched Absolution
 ### Team
 - Brock Brown (brownbr61)
-- Noah Mecham
+- Noah Mecham (nmecham27)
 - Hamid Manoochehri (hamidmanoochehri)
 - Richard Baird (Richbai90)
 
@@ -20,4 +20,13 @@ _The conversion of signals between the analog and digital domains is studied. Th
 
 2.1 Spectrogram for a Chirp that Aliases
 
-2.2 Spectrogram of Periodic Signal
+2.2 Spectrogram of Periodic Signal    
+
+A detailed explanation of each lab section can be seen in the s8.md file.
+
+### Instructions for running
+Add the "s8customfunction" folder to you Matlab path in order to be able to use the custom functions in your scripts.  
+
+Navigate to the LabS-8_Exercise2/ folder and run the main.m script.    
+
+An additional way to view are results is in the s8.md file.
