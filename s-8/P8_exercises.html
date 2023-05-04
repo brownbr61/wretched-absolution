@@ -1,0 +1,351 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>P8_exercises</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-27"><meta name="DC.source" content="P8_exercises.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2"><b>3 -- LAB EXERCISES: Sampling, Aliasing and Reconstruction</b></a></li><li><a href="#3">3.1 Down-Sampling</a></li><li><a href="#5">3.2 Reconstruction of Images</a></li></ul></div><pre class="codeinput">clc;clear;close <span class="string">all</span>;
+</pre><h2 id="2"><b>3 -- LAB EXERCISES: Sampling, Aliasing and Reconstruction</b></h2><h2 id="3">3.1 Down-Sampling</h2><div><ul><li>(a) When you downsample the lighthouse image by a factor of 2, aliasing appears visually as distortions or artifacts that were not present in the original image. These distortions can be seen as repeated patterns or moir&eacute; effects in areas where there are fine details or high-frequency components. In the lighthouse image, the areas that show aliasing effects most dramatically are those with high spatial frequencies, such as the fence in the foreground or the bricks in the lighthouse structure. The fence, in particular, experiences a strong moir&eacute; effect, with the parallel lines appearing to merge and form new patterns in the downsampled image.</li><li>(b) The aliasing in the lighthouse image can be explained by considering the frequency domain. The fence, for example, provides a spatial chirp where the spatial frequency increases from left to right. As we move towards the right side of the image, the spatial frequency of the fence approaches or exceeds the Nyquist frequency (half the sampling rate). According to the Sampling Theorem, a continuous signal can be accurately reconstructed from its samples if the sampling rate is at least twice the highest frequency present in the signal. When the spatial frequency of the features in the image exceeds the Nyquist frequency, aliasing occurs due to undersampling. By examining the fence, we can estimate the frequency of the features that are being aliased. If we count the number of fence posts in a small region of the image and divide by the width of that region in pixels, we can obtain an approximate value for the spatial frequency in cycles per pixel. This value can be compared to the Nyquist frequency to understand if the Sampling Theorem is being violated, resulting in aliasing. Zooming in on a small region of both the original and downsampled images can help visualize the aliasing effects and better understand the relationship between spatial frequency and the Sampling Theorem.</li></ul></div><h2 id="5">3.2 Reconstruction of Images</h2><p><b>Part (a)</b></p><pre class="codeinput">xr1 = (-2).^(0:6);
+L = length(xr1);
+nn = ceil((0.999:1:4*L)/4);<span class="comment">% repeat each index four times</span>
+xr1hold = xr1(nn); <span class="comment">% Apply zero-order hold</span>
+
+<span class="comment">% Plot the original xr1 vector</span>
+figure;
+stem(xr1);
+title(<span class="string">'Original xr1'</span>);
+
+<span class="comment">% Plot the zero-order hold version of xr1</span>
+figure;
+stem(xr1hold);
+title(<span class="string">'Zero-Order Hold of xr1'</span>);
+</pre><img vspace="5" hspace="5" src="P8_exercises_01.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_02.png" alt=""> <p><b>Part (b)</b></p><pre class="codeinput"><span class="comment">% Load the image</span>
+ww = load(<span class="string">'lighthouse.mat'</span>);
+xx = ww.xx;
+
+<span class="comment">% Down-sample by a factor of 3</span>
+p = 3;
+xx3 = xx(1:p:end, 1:p:end);
+</pre><p>Now, we need to apply zero-order hold to all rows of the down-sampled image xx3 with an interpolation factor of 3. We will use the same method as in part (a) but apply it to each row of the image.</p><p>First, we create the indexing vector for zero-order hold with an interpolation factor of 3</p><pre class="codeinput">rows = size(xx3, 1);
+cols = size(xx3, 2);
+
+nn_rows = ceil((0.999:1:3*rows)/3);
+nn_cols = ceil((0.999:1:3*cols)/3);
+
+<span class="comment">% Apply zero-order hold to all rows of the down-sampled image</span>
+xholdrows = xx3(nn_rows, :);
+</pre><p>Now, we will display the down-sampled image xx3 and the zero-order hold version xholdrows to compare their sizes and content.</p><pre class="codeinput"><span class="comment">% Display the down-sampled image</span>
+figure;
+xx3_resized = imresize(xx3, size(xx));
+show_img(xx3_resized, 1, 1);
+title(<span class="string">'Down-sampled Image by a factor of 3'</span>);
+
+<span class="comment">% Display the zero-order hold version of the down-sampled image</span>
+xholdrows_resized = imresize(xholdrows, size(xx));
+
+figure;
+show_img(xholdrows_resized, 2, 1);
+title(<span class="string">'Zero-Order Hold (only on rows) of Down-sampled Image by a factor of 3'</span>);
+</pre><pre class="codeoutput">Image being scaled so that min value is 0 and max value is 255
+Image being scaled so that min value is 0 and max value is 255
+</pre><img vspace="5" hspace="5" src="P8_exercises_03.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_04.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_05.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_06.png" alt=""> <p><b>Part (c)</b> Apply zero-order hold to all columns of the down-sampled and row-zeroholded image</p><pre class="codeinput">xhold = xholdrows(:, nn_cols);
+figure;
+show_img(xhold, 3, 1);
+title(<span class="string">'Zero-Order Hold of Down-sampled Image by a factor of 3'</span>);
+</pre><pre class="codeoutput">Image being scaled so that min value is 0 and max value is 255
+</pre><img vspace="5" hspace="5" src="P8_exercises_07.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_08.png" alt=""> <p><b>Part (d)</b></p><p>To find the interpolation factor when converting `xr1` to `xr1linear`, we need to look at the ratio of the number of points in the interpolated signal `xr1linear` to the number of points in the original signal `xr1`. The original signal `xr1` has 7 points (0 to 6), and the interpolated signal `xr1linear` has points from 0 to 6 with a step size of 0.1. Therefore, `xr1linear` has 61 points (0, 0.1, 0.2, ..., 6).</p><p>The interpolation factor is calculated as:</p><p><img src="P8_exercises_eq08087697771171971891.png" alt="$Interpolation factor = Length of xr1linear / Length of xr1$" style="width:276px;height:11px;"></p><p>In this case:</p><p><img src="P8_exercises_eq10559149681356302187.png" alt="$Interpolation factor = 61 / 7 = 8.7143$" style="width:180px;height:11px;"></p><p>So, the interpolation factor when converting `xr1` to `xr1linear` is approximately 8.71.</p><p><b>Part (e)</b></p><p>To perform linear interpolation on both the rows and columns of the down-sampled image `xx3`, we will use the `interp1` function twice. First, we will interpolate the rows, then the columns. The resulting image will be called `xxlinear`. Here's the code:</p><pre class="codeinput"><span class="comment">% Perform linear interpolation on rows</span>
+xx3_rows = interp1(1:size(xx3, 1), xx3, linspace(1, size(xx3, 1), size(xx, 1)));
+
+<span class="comment">% Perform linear interpolation on columns</span>
+xxlinear = interp1(1:size(xx3_rows, 2), xx3_rows', linspace(1, size(xx3_rows, 2), size(xx, 2)))';
+
+<span class="comment">% Display the resulting image</span>
+figure;
+show_img(xxlinear, 7, 1);
+title(<span class="string">'Linearly Interpolated Image'</span>);
+</pre><pre class="codeoutput">Image being scaled so that min value is 0 and max value is 255
+</pre><img vspace="5" hspace="5" src="P8_exercises_09.png" alt=""> <img vspace="5" hspace="5" src="P8_exercises_10.png" alt=""> <p>The code above first interpolates the rows of the down-sampled image `xx3` using `interp1` and stores the result in `xx3_rows`. Then, it interpolates the columns of `xx3_rows` using `interp1` on the transposed matrix and stores the result in `xxlinear`. Finally, it displays the linearly interpolated image `xxlinear`.</p><p><b>Part (f)</b></p><p>Visually, the reconstructed image appears to be smoother than the downsampled image. However, when compared to the original image, we can observe some blurriness and loss of sharpness in the reconstructed image. Some of the details in the original image may also be lost in the reconstruction process. The reconstruction process does not remove the aliasing effects completely. Although the reconstructed image appears smoother than the downsampled image, we can still see some aliasing effects in the image, especially in areas with high frequency content. Zooming in on specific regions may reveal more details about the aliasing effects.</p><p><b>Part (g)</b></p><p>In order to compare the quality of the linear interpolation result to the zero-order hold result, we can analyze regions of the images with different local frequency content. In general, regions with high frequency content (such as edges) are more challenging to interpolate accurately, while regions with low frequency content (such as smooth backgrounds) can be reconstructed more easily.</p><p>Looking at the lighthouse image, we can see that the edges of the image (such as the boundary between the sky and sea, or the fence posts) contain high frequency content, while the smoother regions (such as the sky or the water) contain low frequency content.</p><p>In the zero-order hold interpolation, we are essentially replicating the nearest neighbor value to fill in the missing pixels. This can lead to blocky artifacts in regions with high frequency content, as the replication of the nearest value does not accurately capture the shape of the original signal. This can be seen in the downsampled image and the zero-order hold reconstruction, particularly in the fence posts where there are noticeable blocky artifacts. On the other hand, linear interpolation attempts to estimate the value of the missing pixels based on the surrounding pixels, and can result in smoother and more accurate reconstructions. However, in regions with high frequency content, the linear interpolation may introduce artifacts due to the difficulty in accurately estimating the signal's shape.</p><p>We can see the differences in the quality of the two interpolations by comparing the reconstructed images to the original lighthouse image. In general, the linear interpolation produces a smoother and more visually appealing reconstruction compared to the zero-order hold interpolation. However, there are still noticeable artifacts in regions with high frequency content, particularly along edges such as the fence posts.</p><p>It is also worth noting that the zooming feature in MATLAB can introduce its own interpolation, likely a zero-order hold, which may affect the quality of the image when looking at small patches. Therefore, it is important to be mindful of this when using the zooming feature to analyze the reconstructed images.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clc;clear;close all;
+%% *3 REPLACE_WITH_DASH_DASH LAB EXERCISES: Sampling, Aliasing and Reconstruction*
+
+%% 3.1 Down-Sampling
+
+%%
+% 
+% * (a) When you downsample the lighthouse image by a factor of 2, aliasing appears visually as distortions or artifacts that were not present in the original image. These distortions can be seen as repeated patterns or moiré effects in areas where there are fine details or high-frequency components. In the lighthouse image, the areas that show aliasing effects most dramatically are those with high spatial frequencies, such as the fence in the foreground or the bricks in the lighthouse structure. The fence, in particular, experiences a strong moiré effect, with the parallel lines appearing to merge and form new patterns in the downsampled image.
+% * (b) The aliasing in the lighthouse image can be explained by considering the frequency domain. The fence, for example, provides a spatial chirp where the spatial frequency increases from left to right. As we move towards the right side of the image, the spatial frequency of the fence approaches or exceeds the Nyquist frequency (half the sampling rate). According to the Sampling Theorem, a continuous signal can be accurately reconstructed from its samples if the sampling rate is at least twice the highest frequency present in the signal. When the spatial frequency of the features in the image exceeds the Nyquist frequency, aliasing occurs due to undersampling.
+% By examining the fence, we can estimate the frequency of the features that are being aliased. If we count the number of fence posts in a small region of the image and divide by the width of that region in pixels, we can obtain an approximate value for the spatial frequency in cycles per pixel. This value can be compared to the Nyquist frequency to understand if the Sampling Theorem is being violated, resulting in aliasing. Zooming in on a small region of both the original and downsampled images can help visualize the aliasing effects and better understand the relationship between spatial frequency and the Sampling Theorem.
+
+%% 3.2 Reconstruction of Images
+% *Part (a)*
+
+xr1 = (-2).^(0:6);
+L = length(xr1);
+nn = ceil((0.999:1:4*L)/4);% repeat each index four times
+xr1hold = xr1(nn); % Apply zero-order hold
+
+% Plot the original xr1 vector
+figure;
+stem(xr1);
+title('Original xr1');
+
+% Plot the zero-order hold version of xr1
+figure;
+stem(xr1hold);
+title('Zero-Order Hold of xr1');
+
+%%
+% 
+% *Part (b)*
+% 
+
+
+% Load the image
+ww = load('lighthouse.mat');
+xx = ww.xx;
+
+% Down-sample by a factor of 3
+p = 3;
+xx3 = xx(1:p:end, 1:p:end);
+
+%%
+% 
+% Now, we need to apply zero-order hold to all rows of the
+% down-sampled image xx3 with an interpolation factor of 3. We will use the
+% same method as in part (a) but apply it to each row of the image.
+% 
+
+%%
+% 
+% First, we create the indexing vector for zero-order hold with an interpolation
+% factor of 3
+% 
+
+rows = size(xx3, 1);
+cols = size(xx3, 2);
+
+nn_rows = ceil((0.999:1:3*rows)/3);
+nn_cols = ceil((0.999:1:3*cols)/3);
+
+% Apply zero-order hold to all rows of the down-sampled image
+xholdrows = xx3(nn_rows, :);
+
+%%
+% 
+% Now, we will display the down-sampled image xx3 and the zero-order hold
+% version xholdrows to compare their sizes and content.
+% 
+
+% Display the down-sampled image
+figure;
+xx3_resized = imresize(xx3, size(xx));
+show_img(xx3_resized, 1, 1);
+title('Down-sampled Image by a factor of 3');
+
+% Display the zero-order hold version of the down-sampled image
+xholdrows_resized = imresize(xholdrows, size(xx));
+
+figure;
+show_img(xholdrows_resized, 2, 1);
+title('Zero-Order Hold (only on rows) of Down-sampled Image by a factor of 3');
+
+%%
+% 
+% *Part (c)*
+% Apply zero-order hold to all columns of the down-sampled and row-zeroholded image
+% 
+
+
+xhold = xholdrows(:, nn_cols);
+figure;
+show_img(xhold, 3, 1);
+title('Zero-Order Hold of Down-sampled Image by a factor of 3');
+
+
+%%
+% 
+% *Part (d)*
+% 
+% To find the interpolation factor when converting `xr1` to `xr1linear`, we need to look at the ratio of the number of points in the interpolated signal `xr1linear` to the number of points in the original signal `xr1`.
+% The original signal `xr1` has 7 points (0 to 6), and the interpolated signal `xr1linear` has points from 0 to 6 with a step size of 0.1. Therefore, `xr1linear` has 61 points (0, 0.1, 0.2, ..., 6).
+% 
+% The interpolation factor is calculated as:
+% 
+% $Interpolation factor = Length of xr1linear / Length of xr1$
+%
+% In this case:
+% 
+% $Interpolation factor = 61 / 7 = 8.7143$
+% 
+% So, the interpolation factor when converting `xr1` to `xr1linear` is approximately 8.71.
+% 
+
+
+
+%%
+% 
+% *Part (e)*
+% 
+% 
+% To perform linear interpolation on both the rows and columns of the down-sampled image `xx3`, we will use the `interp1` function twice. First, we will interpolate the rows, then the columns. The resulting image will be called `xxlinear`.
+% Here's the code:
+% 
+
+% Perform linear interpolation on rows
+xx3_rows = interp1(1:size(xx3, 1), xx3, linspace(1, size(xx3, 1), size(xx, 1)));
+
+% Perform linear interpolation on columns
+xxlinear = interp1(1:size(xx3_rows, 2), xx3_rows', linspace(1, size(xx3_rows, 2), size(xx, 2)))';
+
+% Display the resulting image
+figure;
+show_img(xxlinear, 7, 1);
+title('Linearly Interpolated Image');
+
+%%
+% 
+% The code above first interpolates the rows of the down-sampled image `xx3` 
+% using `interp1` and stores the result in `xx3_rows`. Then, it interpolates
+% the columns of `xx3_rows` using `interp1` on the transposed matrix and stores
+% the result in `xxlinear`. Finally, it displays the linearly interpolated image `xxlinear`.
+% 
+
+%%
+% 
+% *Part (f)*
+% 
+% 
+% Visually, the reconstructed image appears to be smoother than the downsampled 
+% image. However, when compared to the original image, we can observe some
+% blurriness and loss of sharpness in the reconstructed image. Some of the 
+% details in the original image may also be lost in the reconstruction process.
+% The reconstruction process does not remove the aliasing effects completely. 
+% Although the reconstructed image appears smoother than the downsampled image, 
+% we can still see some aliasing effects in the image, especially in areas with 
+% high frequency content. Zooming in on specific regions may reveal more details 
+% about the aliasing effects.
+
+
+
+
+%%
+% 
+% *Part (g)*
+% 
+% In order to compare the quality of the linear interpolation result to the 
+% zero-order hold result, we can analyze regions of the images with different 
+% local frequency content. In general, regions with high frequency content 
+% (such as edges) are more challenging to interpolate accurately, while regions 
+% with low frequency content (such as smooth backgrounds) can be reconstructed more easily.
+% 
+% 
+% Looking at the lighthouse image, we can see that the edges of the image 
+% (such as the boundary between the sky and sea, or the fence posts) contain 
+% high frequency content, while the smoother regions (such as the sky or the water) 
+% contain low frequency content.
+% 
+% 
+% In the zero-order hold interpolation, we are essentially replicating the 
+% nearest neighbor value to fill in the missing pixels. This can lead to blocky 
+% artifacts in regions with high frequency content, as the replication of the 
+% nearest value does not accurately capture the shape of the original signal. 
+% This can be seen in the downsampled image and the zero-order hold reconstruction, 
+% particularly in the fence posts where there are noticeable blocky artifacts.
+% On the other hand, linear interpolation attempts to estimate the value of the 
+% missing pixels based on the surrounding pixels, and can result in smoother and 
+% more accurate reconstructions. However, in regions with high frequency content, 
+% the linear interpolation may introduce artifacts due to the difficulty in accurately 
+% estimating the signal's shape.
+% 
+% 
+% We can see the differences in the quality of the two interpolations by comparing the 
+% reconstructed images to the original lighthouse image. In general, the linear 
+% interpolation produces a smoother and more visually appealing reconstruction 
+% compared to the zero-order hold interpolation. However, there are still noticeable 
+% artifacts in regions with high frequency content, particularly along edges such as 
+% the fence posts.
+% 
+% 
+% It is also worth noting that the zooming feature in MATLAB can introduce its
+% own interpolation, likely a zero-order hold, which may affect the quality of 
+% the image when looking at small patches. Therefore, it is important to be mindful 
+% of this when using the zooming feature to analyze the reconstructed images.
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
