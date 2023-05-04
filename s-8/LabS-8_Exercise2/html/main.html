@@ -1,0 +1,565 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-05-03"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Sampling &amp; Aliasing: Lab S-8 - Lab 2 Exercises</a></li><li><a href="#2">Pre-lab</a></li><li><a href="#3">2.1.a</a></li><li><a href="#4">2.1.b</a></li><li><a href="#5">2.1.c</a></li><li><a href="#6">2.2.1.a</a></li><li><a href="#7">2.2.1.b</a></li><li><a href="#8">2.2.1.c</a></li><li><a href="#9">2.2.1.d</a></li><li><a href="#10">2.2.1.e</a></li><li><a href="#11">2.2.1.f</a></li><li><a href="#12">2.2.2.a</a></li><li><a href="#13">2.2.2.b</a></li><li><a href="#14">2.2.2.c</a></li><li><a href="#15">2.2.3.a</a></li><li><a href="#16">2.2.3.b</a></li><li><a href="#17">2.2.3.c</a></li><li><a href="#18">2.2.3.d</a></li><li><a href="#19">Bonus visualization</a></li></ul></div><h2 id="1">Sampling &amp; Aliasing: Lab S-8 - Lab 2 Exercises</h2><pre class="codeinput">clear;
+clc;
+clf;
+close <span class="string">all</span>;
+</pre><h2 id="2">Pre-lab</h2><p>Demonstrate Chirp Functionality</p><pre class="codeinput">chirpPlot = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+f = [0 5];
+t = [0 5];
+fs = 150;
+[t,x] = generateChirp(f,t,fs);
+plotspec( x, 1/fs), colorbar, grid <span class="string">on</span> <span class="comment">%-- with negative frequencies</span>
+print(<span class="string">"demo_chirp"</span>,<span class="string">"-dpng"</span>,<span class="string">'-r600'</span>); <span class="comment">% only uncomment in case of desired file change</span>
+
+<span class="comment">% Demonstrate Triangle Wave Functionality</span>
+trianglePlot = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+f = 5;
+t = [0 1];
+fs = 150;
+[t,x] = generateTriangle(f,t,fs);
+plotspec( x, 1/fs), colorbar, grid <span class="string">on</span> <span class="comment">%-- with negative frequencies</span>
+<span class="comment">% print("demo_triangle","-dpng",'-r600'); % only uncomment in case of desired file change</span>
+
+<span class="comment">% Fourier Series of a Triangle Wave</span>
+ftTriangle = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+k = (0:7)*2 + 1; <span class="comment">% Get odds</span>
+i = 1:length(k);
+disp(<span class="string">"The coefficients for k = [1,3, ..., 13, 15] are as follows:"</span>)
+kcoeff = (-2./((pi^2).*(k.^2)));
+tiledlayout(2,1)
+nexttile
+plot(k,kcoeff)
+title(<span class="string">"coefficients for k = [1,3, ..., 13, 15]"</span>)
+ylabel(<span class="string">"linear amplitude"</span>)
+disp([i;kcoeff])
+disp(<span class="string">"The ratios $k(i):k_1$ are as follows:"</span>)
+rkcoeff = kcoeff./kcoeff(1);
+disp([i;rkcoeff])
+nexttile
+plot(k,20*log(rkcoeff))
+title(<span class="string">"coefficient ratios for k = [1,3, ..., 13, 15]"</span>)
+ylabel(<span class="string">"logarithmic amplitude (dB)"</span>)
+<span class="comment">% print("ft_triangle","-dpng",'-r600'); % only uncomment in case of desired file change</span>
+</pre><pre class="codeoutput">The coefficients for k = [1,3, ..., 13, 15] are as follows:
+  Columns 1 through 7
+
+    1.0000    2.0000    3.0000    4.0000    5.0000    6.0000    7.0000
+   -0.2026   -0.0225   -0.0081   -0.0041   -0.0025   -0.0017   -0.0012
+
+  Column 8
+
+    8.0000
+   -0.0009
+
+The ratios $k(i):k_1$ are as follows:
+  Columns 1 through 7
+
+    1.0000    2.0000    3.0000    4.0000    5.0000    6.0000    7.0000
+    1.0000    0.1111    0.0400    0.0204    0.0123    0.0083    0.0059
+
+  Column 8
+
+    8.0000
+    0.0044
+
+</pre><h2 id="3">2.1.a</h2><h2 id="4">2.1.b</h2><h2 id="5">2.1.c</h2><h2 id="6">2.2.1.a</h2><p>The matlab script to generate a triange wave can be found in triangle.m. The below code is what is found in the triangle.m script</p><p>function y = triangle(fs,amp,T,tstop) fs - Sample rate amp - Amplitude of wave T - Period of wave tstop - Duration of signal    x = 0:(1/fs):tstop;</p><pre>  % Formula for a triangle wave
+  y=((4*amp)/T)*(abs(mod(x-(.25*T),T)-0.5*T))-amp;
+end</pre><p>The function allows us to tune the sample rate, amplitude, period (and frequency), and the duration of the signal that we want back.</p><h2 id="7">2.2.1.b</h2><p>The below code uses the function created in step 2.2.1.a to generate a triangle wave with a period of 10 msec, a sample rate of 10000Hz, and a duration of 3 seconds.</p><pre class="codeinput"><span class="comment">% Parameters to adjust the triangle wave</span>
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+T = .01;
+
+<span class="comment">% Generate a triangle wave</span>
+y = triangle(fs,Amp,T,tStop);
+
+<span class="comment">% The below code will plot 3 periods of the generated signal to verify that</span>
+<span class="comment">% we have the correct timing</span>
+
+<span class="comment">% Allocate the space for the data set to show only 3 periods of the wave</span>
+yprime=zeros(1,(.03/(1/fs)));
+
+<span class="comment">% Grab the samples that we want</span>
+<span class="keyword">for</span> i = 0:(.03/(1/fs))
+    yprime(i+1) = y(i+1);
+<span class="keyword">end</span>
+
+figure(<span class="string">"Name"</span>,<span class="string">"triangle wave"</span>);
+stem(0:1/fs:.03,yprime);
+xlabel(<span class="string">"Sample"</span>);
+ylabel(<span class="string">"Amplitude"</span>);
+title(<span class="string">"3 Periods Of Triangle Wave"</span>);
+<span class="comment">% Save the plot for our md file and poster</span>
+saveas(gcf,<span class="string">"3periodtriangle.jpg"</span>);
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="8">2.2.1.c</h2><p>As verified with the professor, we used matlab's spectrogram function which is available from the signal processing toolbox to generate our spectrogram plot.</p><pre class="codeinput">figure(<span class="string">"Name"</span>,<span class="string">"Triangle Wave Spectrogram"</span>);
+title(<span class="string">"Spectrogram 10 ms Triangle Wave"</span>)
+spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
+saveas(gcf, <span class="string">"spectrogram_p_2_1_a.jpg"</span>);
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="9">2.2.1.d</h2><p>We can see multiple harmonic lines. After creating the plot we manually zoomed in to check for lines. It should be noted that since we plotted in dB scale we can see additional harmonics that weren't necessarily expected by the lab. Below is a list of all the harmonics that were found.</p><p>.02 = 100 Hz .06 = 300 Hz .1 = 500 Hz .14 = 700 Hz .18 = 900 Hz .22 = 1100 Hz .26 = 1300 Hz .30 = 1500 Hz .34 = 1700 Hz .38 = 1900 Hz .42 = 2100 Hz .46 = 2300 Hz .50 = 2500 Hz .54 = 2700 Hz .58 = 2900 Hz .62 = 3100 Hz .66 = 3300 Hz .70 = 3500 Hz .74 = 3700 Hz .78 = 3900 Hz .82 = 4100 Hz .86 = 4300 Hz .90 = 4500 Hz .94 = 4700 Hz .98 = 4900 Hz</p><h2 id="10">2.2.1.e</h2><p>We calculate the normalized fundamental frquency. This way we can easily compare the strongest line in the spectrogram plot with the calculated normalized frequency.</p><pre class="codeinput">norm_fundamental_freq = (((1/T)*2*pi)/fs)/pi;
+disp(<span class="string">"Normalized fundamental frequency:"</span>);
+disp(norm_fundamental_freq);
+</pre><pre class="codeoutput">Normalized fundamental frequency:
+    0.0200
+
+</pre><h2 id="11">2.2.1.f</h2><p>Using the data cursor we are able to get find the dB power of the wave at the first &amp; third harmonics. The below values are the measured values in dB</p><p>1st = -10.88 dB 3rd = -39.5 dB</p><p>However, exercise wanted the values in amplitude. So to get that we reverse the dB calculation</p><pre class="codeinput"><span class="comment">% Amplitude of first and third harmonic</span>
+disp(<span class="string">"First Harmonic Amplitude:"</span>);
+amp1 = 10^((-10.88)/20);
+disp(amp1);
+
+disp(<span class="string">"Third Harmonic Amplitude:"</span>);
+amp3 = 10^((-39.5)/20);
+disp(amp3);
+</pre><pre class="codeoutput">First Harmonic Amplitude:
+    0.2858
+
+Third Harmonic Amplitude:
+    0.0106
+
+</pre><h2 id="12">2.2.2.a</h2><p>6 dB is double the power becuase of the following equation for dB</p><p>20*log10(A)</p><p>Take an amplitude of 2 and 4 for example and you can see the doubling in amplitude results in an extra 6 dB.</p><pre class="codeinput">disp(<span class="string">"Amplitude of 2:"</span>);
+db2 = 20*log10(2);
+disp(db2);
+
+disp(<span class="string">"Amplitude of 4:"</span>);
+db4 = 20*log10(4);
+disp(db4);
+</pre><pre class="codeoutput">Amplitude of 2:
+    6.0206
+
+Amplitude of 4:
+   12.0412
+
+</pre><h2 id="13">2.2.2.b</h2><p>Using the below equation we can see the difference between a1 &amp; a3. This equation uses the property that a ratio of amplitudes converted to dB, equates to a difference of the amplitudes in dB. The indices k are the only changng value in the fourier series of the triangle wave so they control the dB seperation.</p><pre class="codeinput">disp(<span class="string">"Difference of a1 and a3 (dB):"</span>);
+diff = 20*log10(((-2)/((pi^2)*(1^2)))/((-2)/((pi^2)*(3^2))));
+disp(diff);
+</pre><pre class="codeoutput">Difference of a1 and a3 (dB):
+   19.0849
+
+</pre><h2 id="14">2.2.2.c</h2><p>Using the below equation we can see the difference between a1 &amp; a15. This equation uses the property that a ratio of amplitudes converted to dB, equates to a difference of the amplitudes in dB.</p><pre class="codeinput">disp(<span class="string">"Difference of a1 and a15 (dB):"</span>);
+diff = 20*log10(((-2)/((pi^2)*(1^2)))/((-2)/((pi^2)*(15^2))));
+disp(diff);
+</pre><pre class="codeoutput">Difference of a1 and a15 (dB):
+   47.0437
+
+</pre><h2 id="15">2.2.3.a</h2><p>The below plot is a reproduction of what was displayed in section 2.2.1.c. We again verify the harmonic frequencies that are present. The below list is all the harmonic that we could determine from the plot.</p><p>.02 = 100 Hz .06 = 300 Hz .1 = 500 Hz .14 = 700 Hz .18 = 900 Hz .22 = 1100 Hz .26 = 1300 Hz .30 = 1500 Hz .34 = 1700 Hz .38 = 1900 Hz .42 = 2100 Hz .46 = 2300 Hz .50 = 2500 Hz .54 = 2700 Hz .58 = 2900 Hz .62 = 3100 Hz .66 = 3300 Hz .70 = 3500 Hz .74 = 3700 Hz .78 = 3900 Hz .82 = 4100 Hz .86 = 4300 Hz .90 = 4500 Hz .94 = 4700 Hz .98 = 4900 Hz</p><pre class="codeinput">figure(<span class="string">"Name"</span>,<span class="string">"Triangle Wave Spectrogram 2.2.3.a"</span>);
+title(<span class="string">"Spectrogram 10 ms Triangle Wave"</span>)
+spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="16">2.2.3.b</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 20 ms Duration = 3 s</p><p>The highest frequency seen in the spectrogram plot is at 4950 Hz with a fundamental frequency at 50 Hz. The highest harmonic line is the 50th line.</p><pre class="codeinput"><span class="comment">% Parameters for 20ms triangle wave</span>
+T = .02;
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+
+y = triangle(fs,Amp,T,tStop);
+
+figure(<span class="string">"Name"</span>,<span class="string">"20ms Triangle Wave"</span>);
+spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
+saveas(gcf, <span class="string">"spectrogram_p_2_3_b.jpg"</span>);
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="17">2.2.3.c</h2><p>We measure the amplitudes of the 1st and 3rd harmonic to be as follows</p><p>1st: -10.86 dB 3rd: -38.97 dB</p><p>Compared to the values found in section 2.2.1.f converted to dB:</p><p>1st = -10.88 dB 3rd = -39.5 dB</p><p>There are slight differences, namely a smaller ratio. However, that coudl be due to slight differences in the measuring as they are still very fairly close.</p><h2 id="18">2.2.3.d</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 4 ms Duration = 3 s</p><p>As can be seen in the plot the spacing of the harmonics is actually farther apart.</p><pre class="codeinput"><span class="comment">% Parameters for 4ms triangle wave</span>
+T = .004;
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+
+y = triangle(fs,Amp,T,tStop);
+
+figure(<span class="string">"Name"</span>,<span class="string">"4ms Triangle Wave"</span>);
+spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
+saveas(gcf, <span class="string">"spectrogram_p_2_3_d.jpg"</span>);
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <h2 id="19">Bonus visualization</h2><p>I also created a spectrogram of the sweeping chirp signal to better understand spectrograms and the chirp signal. This also helped in understanding for our presentation.</p><pre class="codeinput">f = [0 5];
+t = [0 5];
+fs = 150;
+[t,x] = generateChirp(f,t,fs);
+spectrogram(x,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
+saveas(gcf, <span class="string">"chirp-spectrogram.jpg"</span>);
+</pre><img vspace="5" hspace="5" src="main_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Sampling & Aliasing: Lab S-8 - Lab 2 Exercises
+%
+clear;
+clc;
+clf;
+close all;
+%% Pre-lab
+% Demonstrate Chirp Functionality
+chirpPlot = figure("visible","off");
+f = [0 5];
+t = [0 5];
+fs = 150;
+[t,x] = generateChirp(f,t,fs);
+plotspec( x, 1/fs), colorbar, grid on %REPLACE_WITH_DASH_DASH with negative frequencies
+print("demo_chirp","-dpng",'-r600'); % only uncomment in case of desired file change
+
+% Demonstrate Triangle Wave Functionality
+trianglePlot = figure("visible","off");
+f = 5;
+t = [0 1];
+fs = 150;
+[t,x] = generateTriangle(f,t,fs);
+plotspec( x, 1/fs), colorbar, grid on %REPLACE_WITH_DASH_DASH with negative frequencies
+% print("demo_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
+
+% Fourier Series of a Triangle Wave
+ftTriangle = figure("visible","off");
+k = (0:7)*2 + 1; % Get odds
+i = 1:length(k);
+disp("The coefficients for k = [1,3, ..., 13, 15] are as follows:")
+kcoeff = (-2./((pi^2).*(k.^2)));
+tiledlayout(2,1)
+nexttile
+plot(k,kcoeff)
+title("coefficients for k = [1,3, ..., 13, 15]")
+ylabel("linear amplitude")
+disp([i;kcoeff])
+disp("The ratios $k(i):k_1$ are as follows:")
+rkcoeff = kcoeff./kcoeff(1);
+disp([i;rkcoeff])
+nexttile
+plot(k,20*log(rkcoeff))
+title("coefficient ratios for k = [1,3, ..., 13, 15]")
+ylabel("logarithmic amplitude (dB)")
+% print("ft_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
+
+%% 2.1.a
+
+%% 2.1.b
+
+%% 2.1.c
+
+%% 2.2.1.a
+% The matlab script to generate a triange wave can be found in triangle.m.
+% The below code is what is found in the triangle.m script
+%
+% function y = triangle(fs,amp,T,tstop)
+% fs - Sample rate
+% amp - Amplitude of wave
+% T - Period of wave
+% tstop - Duration of signal
+%    x = 0:(1/fs):tstop;
+%
+%    % Formula for a triangle wave
+%    y=((4*amp)/T)*(abs(mod(x-(.25*T),T)-0.5*T))-amp;
+% end
+%
+% The function allows us to tune the sample rate, amplitude, period (and
+% frequency), and the duration of the signal that we want back.
+%
+
+%% 2.2.1.b
+% The below code uses the function created in step 2.2.1.a to generate a
+% triangle wave with a period of 10 msec, a sample rate of 10000Hz, and a
+% duration of 3 seconds.
+
+% Parameters to adjust the triangle wave
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+T = .01;
+
+% Generate a triangle wave
+y = triangle(fs,Amp,T,tStop);
+
+% The below code will plot 3 periods of the generated signal to verify that
+% we have the correct timing
+
+% Allocate the space for the data set to show only 3 periods of the wave
+yprime=zeros(1,(.03/(1/fs)));
+
+% Grab the samples that we want
+for i = 0:(.03/(1/fs))
+    yprime(i+1) = y(i+1);
+end
+
+figure("Name","triangle wave");
+stem(0:1/fs:.03,yprime);
+xlabel("Sample");
+ylabel("Amplitude");
+title("3 Periods Of Triangle Wave");
+% Save the plot for our md file and poster
+saveas(gcf,"3periodtriangle.jpg");
+
+%% 2.2.1.c
+% As verified with the professor, we used matlab's spectrogram function
+% which is available from the signal processing toolbox to generate our
+% spectrogram plot.
+
+figure("Name","Triangle Wave Spectrogram");
+title("Spectrogram 10 ms Triangle Wave")
+spectrogram(y,'power','yaxis');
+saveas(gcf, "spectrogram_p_2_1_a.jpg");
+
+%% 2.2.1.d
+% We can see multiple harmonic lines. After creating the plot we manually
+% zoomed in to check for lines. It should be noted that since we plotted in
+% dB scale we can see additional harmonics that weren't necessarily
+% expected by the lab. Below is a list of all the harmonics that were
+% found.
+%
+% .02 = 100 Hz
+% .06 = 300 Hz
+% .1 = 500 Hz
+% .14 = 700 Hz
+% .18 = 900 Hz
+% .22 = 1100 Hz
+% .26 = 1300 Hz
+% .30 = 1500 Hz
+% .34 = 1700 Hz
+% .38 = 1900 Hz
+% .42 = 2100 Hz
+% .46 = 2300 Hz
+% .50 = 2500 Hz
+% .54 = 2700 Hz
+% .58 = 2900 Hz
+% .62 = 3100 Hz
+% .66 = 3300 Hz
+% .70 = 3500 Hz
+% .74 = 3700 Hz
+% .78 = 3900 Hz
+% .82 = 4100 Hz
+% .86 = 4300 Hz
+% .90 = 4500 Hz
+% .94 = 4700 Hz
+% .98 = 4900 Hz
+
+%% 2.2.1.e
+% We calculate the normalized fundamental frquency. This way we can easily
+% compare the strongest line in the spectrogram plot with the calculated
+% normalized frequency.
+
+norm_fundamental_freq = (((1/T)*2*pi)/fs)/pi;
+disp("Normalized fundamental frequency:");
+disp(norm_fundamental_freq);
+
+%% 2.2.1.f
+% Using the data cursor we are able to get find the dB power of the wave at
+% the first & third harmonics. The below values are the measured values in dB
+% 
+% 1st = -10.88 dB
+% 3rd = -39.5 dB
+%
+% However, exercise wanted the values in amplitude. So to get that we
+% reverse the dB calculation
+
+% Amplitude of first and third harmonic
+disp("First Harmonic Amplitude:");
+amp1 = 10^((-10.88)/20);
+disp(amp1);
+
+disp("Third Harmonic Amplitude:");
+amp3 = 10^((-39.5)/20);
+disp(amp3);
+
+%% 2.2.2.a
+% 6 dB is double the power becuase of the following equation for dB
+%
+% 20*log10(A)
+%
+% Take an amplitude of 2 and 4 for example and you can see the doubling in
+% amplitude results in an extra 6 dB.
+
+disp("Amplitude of 2:");
+db2 = 20*log10(2);
+disp(db2);
+
+disp("Amplitude of 4:");
+db4 = 20*log10(4);
+disp(db4);
+
+%% 2.2.2.b
+% Using the below equation we can see the difference between a1 & a3. This
+% equation uses the property that a ratio of amplitudes converted to dB,
+% equates to a difference of the amplitudes in dB. The indices k are the
+% only changng value in the fourier series of the triangle wave so they
+% control the dB seperation.
+
+disp("Difference of a1 and a3 (dB):");
+diff = 20*log10(((-2)/((pi^2)*(1^2)))/((-2)/((pi^2)*(3^2))));
+disp(diff);
+
+
+%% 2.2.2.c
+% Using the below equation we can see the difference between a1 & a15. This
+% equation uses the property that a ratio of amplitudes converted to dB,
+% equates to a difference of the amplitudes in dB.
+
+disp("Difference of a1 and a15 (dB):");
+diff = 20*log10(((-2)/((pi^2)*(1^2)))/((-2)/((pi^2)*(15^2))));
+disp(diff);
+
+%% 2.2.3.a
+% The below plot is a reproduction of what was displayed in section
+% 2.2.1.c. We again verify the harmonic frequencies that are present. The
+% below list is all the harmonic that we could determine from the plot.
+%
+% .02 = 100 Hz
+% .06 = 300 Hz
+% .1 = 500 Hz
+% .14 = 700 Hz
+% .18 = 900 Hz
+% .22 = 1100 Hz
+% .26 = 1300 Hz
+% .30 = 1500 Hz
+% .34 = 1700 Hz
+% .38 = 1900 Hz
+% .42 = 2100 Hz
+% .46 = 2300 Hz
+% .50 = 2500 Hz
+% .54 = 2700 Hz
+% .58 = 2900 Hz
+% .62 = 3100 Hz
+% .66 = 3300 Hz
+% .70 = 3500 Hz
+% .74 = 3700 Hz
+% .78 = 3900 Hz
+% .82 = 4100 Hz
+% .86 = 4300 Hz
+% .90 = 4500 Hz
+% .94 = 4700 Hz
+% .98 = 4900 Hz
+
+figure("Name","Triangle Wave Spectrogram 2.2.3.a");
+title("Spectrogram 10 ms Triangle Wave")
+spectrogram(y,'power','yaxis');
+
+%% 2.2.3.b
+% A new triangle wave is generated with the following parameters:  
+%
+% fs = 10000 Hz
+% Amplitude = 0.5
+% T = 20 ms
+% Duration = 3 s
+%
+% The highest frequency seen in the spectrogram plot is at 4950 Hz with a
+% fundamental frequency at 50 Hz. The highest harmonic line is the 50th
+% line.
+
+% Parameters for 20ms triangle wave
+T = .02;
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+
+y = triangle(fs,Amp,T,tStop);
+
+figure("Name","20ms Triangle Wave");
+spectrogram(y,'power','yaxis');
+saveas(gcf, "spectrogram_p_2_3_b.jpg");
+
+%% 2.2.3.c
+% We measure the amplitudes of the 1st and 3rd harmonic to be as follows
+%
+% 1st: -10.86 dB
+% 3rd: -38.97 dB
+%
+% Compared to the values found in section 2.2.1.f converted to dB:
+%
+% 1st = -10.88 dB
+% 3rd = -39.5 dB
+%
+% There are slight differences, namely a smaller ratio. However, that coudl
+% be due to slight differences in the measuring as they are still very
+% fairly close.
+
+%% 2.2.3.d
+% A new triangle wave is generated with the following parameters:
+%
+% fs = 10000 Hz
+% Amplitude = 0.5
+% T = 4 ms
+% Duration = 3 s
+%
+% As can be seen in the plot the spacing of the harmonics is actually
+% farther apart.
+
+% Parameters for 4ms triangle wave
+T = .004;
+fs = 10000;
+Amp = 0.5;
+tStop = 3;
+
+y = triangle(fs,Amp,T,tStop);
+
+figure("Name","4ms Triangle Wave");
+spectrogram(y,'power','yaxis');
+saveas(gcf, "spectrogram_p_2_3_d.jpg");
+
+%% Bonus visualization
+% I also created a spectrogram of the sweeping chirp signal to better
+% understand spectrograms and the chirp signal. This also helped in
+% understanding for our presentation.
+
+f = [0 5];
+t = [0 5];
+fs = 150;
+[t,x] = generateChirp(f,t,fs);
+spectrogram(x,'power','yaxis');
+saveas(gcf, "chirp-spectrogram.jpg");
+##### SOURCE END #####
+--></body></html>
