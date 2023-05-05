@@ -32,4 +32,6 @@ Add the "s8customfunction" folder to you Matlab path in order to be able to use 
 
 Navigate to the LabS-8_Exercise2/ folder and run the main.m script.    
 
-An additional way to view are results is in the s8.md file.
+An additional way to view our results is in the s8.md file.
+
+The GitHub repo can be found [here](https://github.com/brownbr61/wretched-absolution).
