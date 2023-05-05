@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>main</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-05-03"><meta name="DC.source" content="main.m"><style type="text/css">
+      --><title>main</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-05-04"><meta name="DC.source" content="main.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 clc;
 clf;
 close <span class="string">all</span>;
-</pre><h2 id="2">Pre-lab</h2><p>Demonstrate Chirp Functionality</p><pre class="codeinput">chirpPlot = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+</pre><h2 id="2">Pre-lab</h2><p>Demonstrate Chirp Functionality</p><pre class="codeinput">chirpPlot = figure(<span class="string">"visible"</span>,<span class="string">"on"</span>);
 f = [0 5];
 t = [0 5];
 fs = 150;
@@ -80,7 +80,7 @@ plotspec( x, 1/fs), colorbar, grid <span class="string">on</span> <span class="c
 print(<span class="string">"demo_chirp"</span>,<span class="string">"-dpng"</span>,<span class="string">'-r600'</span>); <span class="comment">% only uncomment in case of desired file change</span>
 
 <span class="comment">% Demonstrate Triangle Wave Functionality</span>
-trianglePlot = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+trianglePlot = figure(<span class="string">"visible"</span>,<span class="string">"on"</span>);
 f = 5;
 t = [0 1];
 fs = 150;
@@ -89,7 +89,7 @@ plotspec( x, 1/fs), colorbar, grid <span class="string">on</span> <span class="c
 <span class="comment">% print("demo_triangle","-dpng",'-r600'); % only uncomment in case of desired file change</span>
 
 <span class="comment">% Fourier Series of a Triangle Wave</span>
-ftTriangle = figure(<span class="string">"visible"</span>,<span class="string">"off"</span>);
+ftTriangle = figure(<span class="string">"visible"</span>,<span class="string">"on"</span>);
 k = (0:7)*2 + 1; <span class="comment">% Get odds</span>
 i = 1:length(k);
 disp(<span class="string">"The coefficients for k = [1,3, ..., 13, 15] are as follows:"</span>)
@@ -130,7 +130,14 @@ The ratios $k(i):k_1$ are as follows:
     8.0000
     0.0044
 
-</pre><h2 id="3">2.1.a</h2><h2 id="4">2.1.b</h2><h2 id="5">2.1.c</h2><h2 id="6">2.2.1.a</h2><p>The matlab script to generate a triange wave can be found in triangle.m. The below code is what is found in the triangle.m script</p><p>function y = triangle(fs,amp,T,tstop) fs - Sample rate amp - Amplitude of wave T - Period of wave tstop - Duration of signal    x = 0:(1/fs):tstop;</p><pre>  % Formula for a triangle wave
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="3">2.1.a</h2><p>What happens when we make a signal that &#8220;chirps&#8221; up to a very high frequency, and the instantaneous frequency goes past half the sampling rate? Generate a chirp signal that starts at <img src="main_eq14919756175665588202.png" alt="$1000 Hz$"> when t=0s, and chirps up to <img src="main_eq04260770366518957335.png" alt="$11,000 Hz$">, at t=4 s. Use f_s = 4000 Hz.</p><p>The needed parameters are f = [1000 11000]; t = [0 4]; fs = [4000];</p><p>The above parameters result in the following function call:</p><pre class="codeinput"><span class="comment">% Chirp Beyond Nyquist Rate</span>
+f = [1000 11000];
+t = [0 4];
+fs = [4000];
+[t,x] = generateChirp(f,t,fs);
+</pre><h2 id="4">2.1.b</h2><p>Generate the chirp signal in MATLAB and make a spectrogram with a short section length, LSECT, to verify that you have the correct starting and ending frequencies. For your chosen LSECT, determine the section duration TSECT in secs.</p><p>The following code is used to plot the chirp in both the time &amp; frequency domain:</p><pre class="codeinput">plotspec( x, 1/fs), colorbar, grid <span class="string">on</span> <span class="comment">%-- with negative frequencies</span>
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="5">2.1.c</h2><p>Explain why the instantaneous frequency seen in the spectrogram goes up and down between zero and \pm\frac{f_s}{2}, i.e., it does not chirp up to 11,000 Hz. There are two effects that should be accounted for in your explanation.</p><p>Folding Effect: frequencies where 0 Hz &lt;= fsig Hz &lt;= fs/2 Hz can be recorded with no loss of information. However, when fs/2 Hz &lt;= fsig Hz &lt;= fs Hz, the associated frequencies can be interpreted either as positive frequencies within the range fs/2 Hz &lt;= fsig Hz &lt;= fs Hz Hz, or as negative frequencies within the range 0 Hz &lt;= -fsig Hz &lt;= fs/2 Hz, or a reflection across the y-axis. However, because the signals are real, they already reflect and duplicate themselves over the y-axis (cost = (e^(jwt)+e^(-jwt))/2). As a result, we can only get any useful information on frequencies between 0 Hz &lt;= fsig Hz &lt;= fs/2 Hz.</p><p>Aliasing Effect: Because we have no anti-aliasing filter, the higher-frequency signals present in the signal become noise that confounds the frequency information gathered from the plotspec(...)function.</p><pre class="codeinput">clear;
+</pre><h2 id="6">2.2.1.a</h2><p>The matlab script to generate a triange wave can be found in triangle.m. The below code is what is found in the triangle.m script</p><p>function y = triangle(fs,amp,T,tstop) fs - Sample rate amp - Amplitude of wave T - Period of wave tstop - Duration of signal    x = 0:(1/fs):tstop;</p><pre>  % Formula for a triangle wave
   y=((4*amp)/T)*(abs(mod(x-(.25*T),T)-0.5*T))-amp;
 end</pre><p>The function allows us to tune the sample rate, amplitude, period (and frequency), and the duration of the signal that we want back.</p><h2 id="7">2.2.1.b</h2><p>The below code uses the function created in step 2.2.1.a to generate a triangle wave with a period of 10 msec, a sample rate of 10000Hz, and a duration of 3 seconds.</p><pre class="codeinput"><span class="comment">% Parameters to adjust the triangle wave</span>
 fs = 10000;
@@ -159,11 +166,11 @@ ylabel(<span class="string">"Amplitude"</span>);
 title(<span class="string">"3 Periods Of Triangle Wave"</span>);
 <span class="comment">% Save the plot for our md file and poster</span>
 saveas(gcf,<span class="string">"3periodtriangle.jpg"</span>);
-</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="8">2.2.1.c</h2><p>As verified with the professor, we used matlab's spectrogram function which is available from the signal processing toolbox to generate our spectrogram plot.</p><pre class="codeinput">figure(<span class="string">"Name"</span>,<span class="string">"Triangle Wave Spectrogram"</span>);
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <h2 id="8">2.2.1.c</h2><p>As verified with the professor, we used matlab's spectrogram function which is available from the signal processing toolbox to generate our spectrogram plot.</p><pre class="codeinput">figure(<span class="string">"Name"</span>,<span class="string">"Triangle Wave Spectrogram"</span>);
 title(<span class="string">"Spectrogram 10 ms Triangle Wave"</span>)
 spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
 saveas(gcf, <span class="string">"spectrogram_p_2_1_a.jpg"</span>);
-</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="9">2.2.1.d</h2><p>We can see multiple harmonic lines. After creating the plot we manually zoomed in to check for lines. It should be noted that since we plotted in dB scale we can see additional harmonics that weren't necessarily expected by the lab. Below is a list of all the harmonics that were found.</p><p>.02 = 100 Hz .06 = 300 Hz .1 = 500 Hz .14 = 700 Hz .18 = 900 Hz .22 = 1100 Hz .26 = 1300 Hz .30 = 1500 Hz .34 = 1700 Hz .38 = 1900 Hz .42 = 2100 Hz .46 = 2300 Hz .50 = 2500 Hz .54 = 2700 Hz .58 = 2900 Hz .62 = 3100 Hz .66 = 3300 Hz .70 = 3500 Hz .74 = 3700 Hz .78 = 3900 Hz .82 = 4100 Hz .86 = 4300 Hz .90 = 4500 Hz .94 = 4700 Hz .98 = 4900 Hz</p><h2 id="10">2.2.1.e</h2><p>We calculate the normalized fundamental frquency. This way we can easily compare the strongest line in the spectrogram plot with the calculated normalized frequency.</p><pre class="codeinput">norm_fundamental_freq = (((1/T)*2*pi)/fs)/pi;
+</pre><img vspace="5" hspace="5" src="main_06.png" alt=""> <h2 id="9">2.2.1.d</h2><p>We can see multiple harmonic lines. After creating the plot we manually zoomed in to check for lines. It should be noted that since we plotted in dB scale we can see additional harmonics that weren't necessarily expected by the lab. Below is a list of all the harmonics that were found.</p><p>.02 = 100 Hz .06 = 300 Hz .1 = 500 Hz .14 = 700 Hz .18 = 900 Hz .22 = 1100 Hz .26 = 1300 Hz .30 = 1500 Hz .34 = 1700 Hz .38 = 1900 Hz .42 = 2100 Hz .46 = 2300 Hz .50 = 2500 Hz .54 = 2700 Hz .58 = 2900 Hz .62 = 3100 Hz .66 = 3300 Hz .70 = 3500 Hz .74 = 3700 Hz .78 = 3900 Hz .82 = 4100 Hz .86 = 4300 Hz .90 = 4500 Hz .94 = 4700 Hz .98 = 4900 Hz</p><h2 id="10">2.2.1.e</h2><p>We calculate the normalized fundamental frquency. This way we can easily compare the strongest line in the spectrogram plot with the calculated normalized frequency.</p><pre class="codeinput">norm_fundamental_freq = (((1/T)*2*pi)/fs)/pi;
 disp(<span class="string">"Normalized fundamental frequency:"</span>);
 disp(norm_fundamental_freq);
 </pre><pre class="codeoutput">Normalized fundamental frequency:
@@ -211,7 +218,7 @@ disp(diff);
 </pre><h2 id="15">2.2.3.a</h2><p>The below plot is a reproduction of what was displayed in section 2.2.1.c. We again verify the harmonic frequencies that are present. The below list is all the harmonic that we could determine from the plot.</p><p>.02 = 100 Hz .06 = 300 Hz .1 = 500 Hz .14 = 700 Hz .18 = 900 Hz .22 = 1100 Hz .26 = 1300 Hz .30 = 1500 Hz .34 = 1700 Hz .38 = 1900 Hz .42 = 2100 Hz .46 = 2300 Hz .50 = 2500 Hz .54 = 2700 Hz .58 = 2900 Hz .62 = 3100 Hz .66 = 3300 Hz .70 = 3500 Hz .74 = 3700 Hz .78 = 3900 Hz .82 = 4100 Hz .86 = 4300 Hz .90 = 4500 Hz .94 = 4700 Hz .98 = 4900 Hz</p><pre class="codeinput">figure(<span class="string">"Name"</span>,<span class="string">"Triangle Wave Spectrogram 2.2.3.a"</span>);
 title(<span class="string">"Spectrogram 10 ms Triangle Wave"</span>)
 spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
-</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="16">2.2.3.b</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 20 ms Duration = 3 s</p><p>The highest frequency seen in the spectrogram plot is at 4950 Hz with a fundamental frequency at 50 Hz. The highest harmonic line is the 50th line.</p><pre class="codeinput"><span class="comment">% Parameters for 20ms triangle wave</span>
+</pre><img vspace="5" hspace="5" src="main_07.png" alt=""> <h2 id="16">2.2.3.b</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 20 ms Duration = 3 s</p><p>The highest frequency seen in the spectrogram plot is at 4950 Hz with a fundamental frequency at 50 Hz. The highest harmonic line is the 50th line.</p><pre class="codeinput"><span class="comment">% Parameters for 20ms triangle wave</span>
 T = .02;
 fs = 10000;
 Amp = 0.5;
@@ -222,7 +229,7 @@ y = triangle(fs,Amp,T,tStop);
 figure(<span class="string">"Name"</span>,<span class="string">"20ms Triangle Wave"</span>);
 spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
 saveas(gcf, <span class="string">"spectrogram_p_2_3_b.jpg"</span>);
-</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="17">2.2.3.c</h2><p>We measure the amplitudes of the 1st and 3rd harmonic to be as follows</p><p>1st: -10.86 dB 3rd: -38.97 dB</p><p>Compared to the values found in section 2.2.1.f converted to dB:</p><p>1st = -10.88 dB 3rd = -39.5 dB</p><p>There are slight differences, namely a smaller ratio. However, that coudl be due to slight differences in the measuring as they are still very fairly close.</p><h2 id="18">2.2.3.d</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 4 ms Duration = 3 s</p><p>As can be seen in the plot the spacing of the harmonics is actually farther apart.</p><pre class="codeinput"><span class="comment">% Parameters for 4ms triangle wave</span>
+</pre><img vspace="5" hspace="5" src="main_08.png" alt=""> <h2 id="17">2.2.3.c</h2><p>We measure the amplitudes of the 1st and 3rd harmonic to be as follows</p><p>1st: -10.86 dB 3rd: -38.97 dB</p><p>Compared to the values found in section 2.2.1.f converted to dB:</p><p>1st = -10.88 dB 3rd = -39.5 dB</p><p>There are slight differences, namely a smaller ratio. However, that coudl be due to slight differences in the measuring as they are still very fairly close.</p><h2 id="18">2.2.3.d</h2><p>A new triangle wave is generated with the following parameters:</p><p>fs = 10000 Hz Amplitude = 0.5 T = 4 ms Duration = 3 s</p><p>As can be seen in the plot the spacing of the harmonics is actually farther apart.</p><pre class="codeinput"><span class="comment">% Parameters for 4ms triangle wave</span>
 T = .004;
 fs = 10000;
 Amp = 0.5;
@@ -233,13 +240,13 @@ y = triangle(fs,Amp,T,tStop);
 figure(<span class="string">"Name"</span>,<span class="string">"4ms Triangle Wave"</span>);
 spectrogram(y,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
 saveas(gcf, <span class="string">"spectrogram_p_2_3_d.jpg"</span>);
-</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <h2 id="19">Bonus visualization</h2><p>I also created a spectrogram of the sweeping chirp signal to better understand spectrograms and the chirp signal. This also helped in understanding for our presentation.</p><pre class="codeinput">f = [0 5];
+</pre><img vspace="5" hspace="5" src="main_09.png" alt=""> <h2 id="19">Bonus visualization</h2><p>I also created a spectrogram of the sweeping chirp signal to better understand spectrograms and the chirp signal. This also helped in understanding for our presentation.</p><pre class="codeinput">f = [0 5];
 t = [0 5];
 fs = 150;
 [t,x] = generateChirp(f,t,fs);
 spectrogram(x,<span class="string">'power'</span>,<span class="string">'yaxis'</span>);
 saveas(gcf, <span class="string">"chirp-spectrogram.jpg"</span>);
-</pre><img vspace="5" hspace="5" src="main_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="main_10.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Sampling & Aliasing: Lab S-8 - Lab 2 Exercises
 %
@@ -249,7 +256,7 @@ clf;
 close all;
 %% Pre-lab
 % Demonstrate Chirp Functionality
-chirpPlot = figure("visible","off");
+chirpPlot = figure("visible","on");
 f = [0 5];
 t = [0 5];
 fs = 150;
@@ -258,7 +265,7 @@ plotspec( x, 1/fs), colorbar, grid on %REPLACE_WITH_DASH_DASH with negative freq
 print("demo_chirp","-dpng",'-r600'); % only uncomment in case of desired file change
 
 % Demonstrate Triangle Wave Functionality
-trianglePlot = figure("visible","off");
+trianglePlot = figure("visible","on");
 f = 5;
 t = [0 1];
 fs = 150;
@@ -267,7 +274,7 @@ plotspec( x, 1/fs), colorbar, grid on %REPLACE_WITH_DASH_DASH with negative freq
 % print("demo_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
 
 % Fourier Series of a Triangle Wave
-ftTriangle = figure("visible","off");
+ftTriangle = figure("visible","on");
 k = (0:7)*2 + 1; % Get odds
 i = 1:length(k);
 disp("The coefficients for k = [1,3, ..., 13, 15] are as follows:")
@@ -288,11 +295,58 @@ ylabel("logarithmic amplitude (dB)")
 % print("ft_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
 
 %% 2.1.a
+% What happens when we make a signal that “chirps” up to a very high
+% frequency, and the instantaneous frequency goes past half the sampling
+% rate? Generate a chirp signal that starts at $1000 Hz$ when t=0s, and
+% chirps up to $11,000 Hz$, at t=4 s. Use f_s = 4000 Hz.
+%
+% The needed parameters are
+% f = [1000 11000];
+% t = [0 4];
+% fs = [4000];
+%
+% The above parameters result in the following function call:
+
+% Chirp Beyond Nyquist Rate
+f = [1000 11000];
+t = [0 4];
+fs = [4000];
+[t,x] = generateChirp(f,t,fs);
 
 %% 2.1.b
+% Generate the chirp signal in MATLAB and make a spectrogram with a short
+% section length, LSECT, to verify that you have the correct starting and
+% ending frequencies. For your chosen LSECT, determine the section duration
+% TSECT in secs.
+%
+% The following code is used to plot the chirp in both the time & frequency
+% domain:
+
+plotspec( x, 1/fs), colorbar, grid on %REPLACE_WITH_DASH_DASH with negative frequencies
 
 %% 2.1.c
+% Explain why the instantaneous frequency seen in the spectrogram goes up
+% and down between zero and \pm\frac{f_s}{2}, i.e., it does not chirp up to
+% 11,000 Hz. There are two effects that should be accounted for in your
+% explanation.
+%
+% Folding Effect: frequencies where 0 Hz <= fsig Hz <= fs/2 Hz
+% can be recorded with no loss of information. However, when
+% fs/2 Hz <= fsig Hz <= fs Hz, the associated frequencies can be
+% interpreted either as positive frequencies within the range 
+% fs/2 Hz <= fsig Hz <= fs Hz Hz, or as negative frequencies within the
+% range 0 Hz <= -fsig Hz <= fs/2 Hz, or a reflection across the y-axis.
+% However, because the signals are real, they already reflect and duplicate
+% themselves over the y-axis (cost = (e^(jwt)+e^(-jwt))/2). As a result, we
+% can only get any useful information on frequencies between
+% 0 Hz <= fsig Hz <= fs/2 Hz.
+% 
+% Aliasing Effect: Because we have no anti-aliasing filter, the
+% higher-frequency signals present in the signal become noise that
+% confounds the frequency information gathered from the
+% plotspec(...)function.
 
+clear;
 %% 2.2.1.a
 % The matlab script to generate a triange wave can be found in triangle.m.
 % The below code is what is found in the triangle.m script
