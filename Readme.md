@@ -15,6 +15,9 @@ _The conversion of signals between the analog and digital domains is studied. Th
 
 3.2 Reconstruction of Images
 
+### Instructions for running  
+Navigate to the LabP-8_Exercise3/ folder and run the P8_exercises.m script  
+
 ## Lab S-8 - [Spectrograms: Harmonic Lines & Chirp Aliasing](https://dspfirst.gatech.edu/chapters/04samplin/labs/SpecgramHarmonicLinesChirpAliasing/SpecgramHarmonicLinesChirpAliasing.pdf)
 2 Lab Exercise
 
