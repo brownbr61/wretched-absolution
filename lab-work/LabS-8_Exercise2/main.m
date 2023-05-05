@@ -6,7 +6,7 @@ clf;
 close all;
 %% Pre-lab
 % Demonstrate Chirp Functionality
-chirpPlot = figure("visible","off");
+chirpPlot = figure("visible","on");
 f = [0 5];
 t = [0 5];
 fs = 150;
@@ -15,7 +15,7 @@ plotspec( x, 1/fs), colorbar, grid on %-- with negative frequencies
 print("demo_chirp","-dpng",'-r600'); % only uncomment in case of desired file change
 
 % Demonstrate Triangle Wave Functionality
-trianglePlot = figure("visible","off");
+trianglePlot = figure("visible","on");
 f = 5;
 t = [0 1];
 fs = 150;
@@ -24,7 +24,7 @@ plotspec( x, 1/fs), colorbar, grid on %-- with negative frequencies
 % print("demo_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
 
 % Fourier Series of a Triangle Wave
-ftTriangle = figure("visible","off");
+ftTriangle = figure("visible","on");
 k = (0:7)*2 + 1; % Get odds
 i = 1:length(k);
 disp("The coefficients for k = [1,3, ..., 13, 15] are as follows:")
@@ -45,11 +45,58 @@ ylabel("logarithmic amplitude (dB)")
 % print("ft_triangle","-dpng",'-r600'); % only uncomment in case of desired file change
 
 %% 2.1.a
+% What happens when we make a signal that “chirps” up to a very high
+% frequency, and the instantaneous frequency goes past half the sampling
+% rate? Generate a chirp signal that starts at $1000 Hz$ when t=0s, and
+% chirps up to $11,000 Hz$, at t=4 s. Use f_s = 4000 Hz.
+%
+% The needed parameters are
+% f = [1000 11000];
+% t = [0 4];
+% fs = [4000];
+%
+% The above parameters result in the following function call:
+
+% Chirp Beyond Nyquist Rate
+f = [1000 11000];
+t = [0 4];
+fs = [4000];
+[t,x] = generateChirp(f,t,fs);
 
 %% 2.1.b
+% Generate the chirp signal in MATLAB and make a spectrogram with a short
+% section length, LSECT, to verify that you have the correct starting and
+% ending frequencies. For your chosen LSECT, determine the section duration
+% TSECT in secs.
+%
+% The following code is used to plot the chirp in both the time & frequency
+% domain:
+
+plotspec( x, 1/fs), colorbar, grid on %-- with negative frequencies
 
 %% 2.1.c
+% Explain why the instantaneous frequency seen in the spectrogram goes up
+% and down between zero and \pm\frac{f_s}{2}, i.e., it does not chirp up to
+% 11,000 Hz. There are two effects that should be accounted for in your
+% explanation.
+%
+% Folding Effect: frequencies where 0 Hz <= fsig Hz <= fs/2 Hz
+% can be recorded with no loss of information. However, when
+% fs/2 Hz <= fsig Hz <= fs Hz, the associated frequencies can be
+% interpreted either as positive frequencies within the range 
+% fs/2 Hz <= fsig Hz <= fs Hz Hz, or as negative frequencies within the
+% range 0 Hz <= -fsig Hz <= fs/2 Hz, or a reflection across the y-axis.
+% However, because the signals are real, they already reflect and duplicate
+% themselves over the y-axis (cost = (e^(jwt)+e^(-jwt))/2). As a result, we
+% can only get any useful information on frequencies between
+% 0 Hz <= fsig Hz <= fs/2 Hz.
+% 
+% Aliasing Effect: Because we have no anti-aliasing filter, the
+% higher-frequency signals present in the signal become noise that
+% confounds the frequency information gathered from the
+% plotspec(...)function.
 
+clear;
 %% 2.2.1.a
 % The matlab script to generate a triange wave can be found in triangle.m.
 % The below code is what is found in the triangle.m script
