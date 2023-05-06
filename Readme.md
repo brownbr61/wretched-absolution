@@ -1,5 +1,5 @@
 # Wretched Absolution
-### Team
+### Team (Contributors)
 - Brock Brown (brownbr61)
 - Noah Mecham (nmecham27)
 - Hamid Manoochehri (hamidmanoochehri)
